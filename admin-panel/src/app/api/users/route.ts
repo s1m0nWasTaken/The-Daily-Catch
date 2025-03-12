@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { User } from '../../../models/User';
 
+export const dynamic = "force-static";
+
 // This simulates a database
 const users: User[] = [
   { id: 1, username: 'fisher123', email: 'fisher@example.com', isBanned: false, reports: 2 },
