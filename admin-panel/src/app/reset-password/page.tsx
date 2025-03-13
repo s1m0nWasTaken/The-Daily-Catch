@@ -39,7 +39,7 @@ export default function ResetPassword() {
       <div className="max-w-md w-full bg-white rounded-lg shadow-md p-8">
         <div className="text-center mb-6">
           <img
-            src="/img/title.png"
+            src="./img/title.png"
             alt="The Daily Catch"
             className="h-12 mx-auto mb-4"
           />

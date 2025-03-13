@@ -59,7 +59,7 @@ export default function Navbar({ toggleSidebar, isOpen, isUserMode = false }: Na
 
       <div className="absolute left-1/2 transform -translate-x-1/2 cursor-pointer">
         <img
-          src="/img/title.png"
+          src="./img/title.png"
           alt="The Daily Catch"
           className="h-10 object-contain"
         />
@@ -79,7 +79,7 @@ export default function Navbar({ toggleSidebar, isOpen, isUserMode = false }: Na
         
         <div className="p-2 cursor-pointer">
           <img
-            src="/img/profileimg.png"
+            src="./img/profileimg.png"
             alt="Profile"
             width="24"
             height="24"
