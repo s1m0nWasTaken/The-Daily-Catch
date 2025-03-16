@@ -5,21 +5,30 @@
   <meta charset="utf-8">
   <title>Redirecting...</title>
   <script>
-    // Get the current URL path
-    const path = window.location.pathname;
+    // Single Page Apps for GitHub Pages
+    // https://github.com/rafgraph/spa-github-pages
     
-    // Check if we have a duplicate base path
-    if (path.includes('/The-Daily-Catch/The-Daily-Catch/')) {
-      // Remove the duplicate and redirect
-      const fixedPath = path.replace('/The-Daily-Catch/The-Daily-Catch/', '/The-Daily-Catch/');
-      window.location.href = window.location.origin + fixedPath + window.location.search + window.location.hash;
+    // Get the current path
+    const path = window.location.pathname;
+    const search = window.location.search;
+    const hash = window.location.hash;
+    
+    // Check if we're at the root domain without the repo name
+    if (!path.includes('/The-Daily-Catch/')) {
+      // Redirect to the repo path
+      window.location.href = 
+        window.location.origin + 
+        '/The-Daily-Catch' + 
+        (path === '/' ? '/login' : path) + 
+        search + 
+        hash;
     } else {
-      // Regular 404 handling - redirect to home
-      window.location.href = window.location.origin + '/The-Daily-Catch/';
+      // For other 404s, redirect to login
+      window.location.href = window.location.origin + '/The-Daily-Catch/login';
     }
   </script>
 </head>
 <body>
-  <p>Redirecting...</p>
+  <p>Redirecting to application...</p>
 </body>
 </html>
