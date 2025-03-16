@@ -1,10 +1,11 @@
 // src/utils/path.ts
 export function getBasePath(): string {
-    return process.env.NODE_ENV === 'production' ? '/The-Daily-Catch' : '';
+    // Return empty string - Next.js will handle the basePath in production
+    return '';
   }
   
   export function getAssetPath(path: string): string {
-    // Remove leading slash if present to avoid double slashes
+    // Just return the asset path relative to public
     const assetPath = path.startsWith('/') ? path.slice(1) : path;
-    return `${getBasePath()}/${assetPath}`;
+    return `/${assetPath}`;
   }
