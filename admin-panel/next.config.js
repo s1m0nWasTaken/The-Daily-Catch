@@ -5,8 +5,9 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  basePath: process.env.NODE_ENV === 'production' ? '/The-Daily-Catch' : '',
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/The-Daily-Catch/' : '',
+  // Remove basePath - GitHub Actions deployment doesn't need it
+  // basePath: process.env.NODE_ENV === 'production' ? '/The-Daily-Catch' : '',
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/' : '',
   trailingSlash: true,
 }
 
