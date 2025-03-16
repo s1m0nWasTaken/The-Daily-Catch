@@ -1,4 +1,3 @@
-// src/utils/auth.ts
 import { auth, db } from '../config/firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 
@@ -6,7 +5,6 @@ export async function assignUserRole(uid: string, email: string, role: string = 
   console.log(`Assigning role ${role} to user ${email} (${uid})`);
   
   try {
-    // Save to Firestore
     await setDoc(doc(db, "user_roles", uid), {
       email: email,
       role: role,
@@ -22,7 +20,6 @@ export async function assignUserRole(uid: string, email: string, role: string = 
 
 export async function checkUserRole(uid: string): Promise<string> {
   try {
-    // Special case for admin email
     const user = auth.currentUser;
     if (user?.email === 'admin@thedailycatch.com') {
       return 'admin';

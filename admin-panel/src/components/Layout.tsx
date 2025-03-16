@@ -1,4 +1,3 @@
-// Updating the sidebar section with icons:
 
 <ul>
     <li className="py-3 hover:bg-[#1E2A3D] rounded">

@@ -1,4 +1,3 @@
-// c:\dev\The-Daily-Catch\admin-panel\src\services\UserService.ts
 import { User } from '../models/User';
 import { Report } from '../models/Report';
 import { db } from '../config/firebase';
@@ -10,7 +9,6 @@ import
 
 export default class UserService
 {
-  // Convert Firestore document to User model
   private convertToUser(doc: DocumentData): User
   {
     const data = doc.data();
@@ -72,7 +70,6 @@ export default class UserService
     }
   }
 
-  // Add this method to your UserService class:
 
   async toggleBanStatus(userId: number): Promise<User>
   {

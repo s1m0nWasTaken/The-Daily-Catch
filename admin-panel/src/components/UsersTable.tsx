@@ -263,10 +263,8 @@ export default function UsersTable()
               {
                 try
                 {
-                  // Update in Firestore via controller
                   await userController.updateUser(editingUser);
 
-                  // Update local state
                   setUsers(prevUsers =>
                     prevUsers.map(u => u.id === editingUser.id ? editingUser : u)
                   );

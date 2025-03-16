@@ -1,4 +1,3 @@
-// src/components/ProtectedRoute.tsx
 "use client";
 import { getBasePath } from '../../utils/path';
 
@@ -11,7 +10,7 @@ declare global {
 
 import { ReactNode, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { auth } from '../../config/firebase'; // CHANGE THIS LINE - two levels up
+import { auth } from '../../config/firebase'; 
 import { signOut } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../config/firebase';
@@ -20,11 +19,9 @@ export default function ProtectedRoute({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  // Force logout function for debugging
   const forceLogout = async () => {
     try {
       await signOut(auth);
-      // Clear role from session
       sessionStorage.removeItem('userRole');
       window.location.href = '/login';
     } catch (error) {
@@ -41,24 +38,20 @@ export default function ProtectedRoute({ children }: { children: ReactNode }) {
       
       if (!user) {
         console.log("No user, redirecting to login");
-        // Clear role from session
         sessionStorage.removeItem('userRole');
         const basePath = getBasePath();
         router.push(`${basePath}/login`);
         return;
       }
-      
-      // Check if user is admin
+
       try {
-        // Direct admin check - always grant access if email matches admin
         if (user.email === 'admin@thedailycatch.com') {
           console.log("Admin email match, access granted");
           sessionStorage.setItem('userRole', 'admin');
           setLoading(false);
           return;
         }
-        
-        // Check admin role in database
+
         const userDoc = await getDoc(doc(db, "user_roles", user.uid));
         if (userDoc.exists() && userDoc.data().role === "admin") {
           console.log("Admin role confirmed, access granted");
@@ -76,14 +69,12 @@ export default function ProtectedRoute({ children }: { children: ReactNode }) {
       }
     });
 
-    // Safety timeout
     const timeoutId = setTimeout(() => {
       if (isMounted) {
         setLoading(false);
       }
     }, 3000);
 
-    // Debug - Add a global function to force logout
     window.forceLogout = forceLogout;
 
     return () => {

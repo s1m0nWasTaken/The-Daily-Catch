@@ -21,7 +21,6 @@ export default function Navbar({ toggleSidebar, isOpen, isUserMode = false }: Na
 
   useEffect(() =>
   {
-    // Get role from session storage
     const role = sessionStorage.getItem('userRole') || '';
     setUserRole(role);
   }, []);
@@ -33,11 +32,8 @@ const handleLogout = async () => {
     await signOut(auth);
     console.log("Logged out successfully");
     
-    // Clear role from session
     sessionStorage.removeItem('userRole');
     
-    // Use Next.js router with proper basePath
-    // This allows Next.js to handle the repository name prefix
     router.push('/login');
   } catch (error) {
     console.error("Error signing out:", error);

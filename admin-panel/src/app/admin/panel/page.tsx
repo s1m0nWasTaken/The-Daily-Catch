@@ -1,4 +1,3 @@
-// src/app/admin/panel/page.tsx
 "use client";
 
 import React, { useState, useEffect } from 'react';
@@ -51,8 +50,7 @@ export default function AdminPanelPage() {
         });
         
         setUsers(fetchedUsers);
-        
-        // Mock reports data (in a real app, you'd fetch this from Firestore)
+
         const mockReports: Report[] = [
           {
             id: '1',
@@ -92,15 +90,9 @@ export default function AdminPanelPage() {
   }, []);
 
   const handleBanUser = async (userId: string) => {
-    try {
-      // In a real implementation, we'd update the user status in Firestore
-      // await updateDoc(doc(db, "user_roles", userId), {
-      //   status: 'banned'
-      // });
-      
+    try {  
       console.log(`Banning user: ${userId}`);
-      
-      // Update local state to reflect the change
+
       setUsers(users.map(user => 
         user.id === userId ? { ...user, status: 'banned' } : user
       ));
@@ -111,10 +103,6 @@ export default function AdminPanelPage() {
 
   const handleUnbanUser = async (userId: string) => {
     try {
-      // In a real implementation, we'd update the user status in Firestore
-      // await updateDoc(doc(db, "user_roles", userId), {
-      //   status: 'active'
-      // });
       
       console.log(`Unbanning user: ${userId}`);
       

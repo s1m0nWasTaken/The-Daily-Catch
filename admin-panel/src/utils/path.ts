@@ -1,4 +1,3 @@
-// src/utils/path.ts
 export function getBasePath(): string {
     // Let Next.js handle the basePath
     return '';

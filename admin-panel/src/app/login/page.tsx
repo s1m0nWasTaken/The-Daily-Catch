@@ -1,4 +1,3 @@
-// src/app/login/page.tsx
 "use client";
 
 import React, { useState } from 'react';
@@ -30,7 +29,6 @@ export default function Login()
       const user = credential.user;
       console.log("Login successful:", user?.email);
 
-      // Special handling for admin email
       if (user.email === 'admin@thedailycatch.com')
       {
         console.log("Admin email detected, redirecting to admin panel");
@@ -40,7 +38,6 @@ export default function Login()
         return;
       }
 
-      // Check role in database
       const userDoc = await getDoc(doc(db, "user_roles", user.uid));
 
       if (userDoc.exists() && userDoc.data().role === "admin")
@@ -81,11 +78,9 @@ export default function Login()
 
       const user = result.user;
 
-      // Check if admin
       if (user.email === 'admin@thedailycatch.com')
       {
         console.log("Admin email detected via Google login");
-        // Ensure admin role is set in database
         await setDoc(doc(db, "user_roles", user.uid), {
           email: user.email,
           role: 'admin',
@@ -97,7 +92,6 @@ export default function Login()
         return;
       }
 
-      // Check existing role
       const userDoc = await getDoc(doc(db, "user_roles", user.uid));
 
       if (userDoc.exists() && userDoc.data().role === "admin")
@@ -108,7 +102,6 @@ export default function Login()
         router.push(`${basePath}/admin`);
       } else
       {
-        // Set or update user role
         await setDoc(doc(db, "user_roles", user.uid), {
           email: user.email,
           role: 'user',

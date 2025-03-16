@@ -1,4 +1,3 @@
-// src/app/reset-password/page.tsx
 "use client";
 
 import React, { useState } from 'react';
@@ -23,9 +22,7 @@ export default function ResetPassword()
 
     try
     {
-      // Define the actionCodeSettings with redirectUrl
       const actionCodeSettings = {
-        // URL you want to redirect back to after password reset
         url: window.location.origin + '/login?reset=success',
         handleCodeInApp: true
       };

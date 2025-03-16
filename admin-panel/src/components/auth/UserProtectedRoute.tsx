@@ -1,12 +1,10 @@
-// src/components/UserProtectedRoute.tsx
-// src/components/auth/UserProtectedRoute.tsx
 "use client";
 
 import { ReactNode, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { auth } from '../../config/firebase'; // CHANGE THIS LINE - two levels up
+import { auth } from '../../config/firebase'; 
 import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../../config/firebase'; // CHANGE THIS LINE - two levels up
+import { db } from '../../config/firebase'; 
 import { getBasePath } from '../../utils/path';
 
 
@@ -27,20 +25,16 @@ export default function UserProtectedRoute({ children }: { children: ReactNode }
         router.push(`${basePath}/login`);
         return;
       }
-      
-      // Allow access to both regular users and admins
+
       const userRole = sessionStorage.getItem('userRole') || '';
-      
-      // For admin users, check if they're trying to access user pages directly
+
       if (userRole === 'admin') {
-        // If role is already set as admin, allow normal access
         console.log("Admin accessing user area, allowing access");
         setAuthenticated(true);
         setLoading(false);
         return;
       }
       
-      // Check if this is admin@thedailycatch.com
       if (user.email === 'admin@thedailycatch.com') {
         sessionStorage.setItem('userRole', 'admin');
         setAuthenticated(true);
@@ -48,15 +42,12 @@ export default function UserProtectedRoute({ children }: { children: ReactNode }
         return;
       }
       
-      // Regular user or unknown, check from DB
       try {
         const userDoc = await getDoc(doc(db, "user_roles", user.uid));
         
         if (userDoc.exists() && userDoc.data().role === "admin") {
-          // It's an admin accessing user area
           sessionStorage.setItem('userRole', 'admin');
         } else {
-          // It's a regular user
           sessionStorage.setItem('userRole', 'user');
         }
         
@@ -69,7 +60,6 @@ export default function UserProtectedRoute({ children }: { children: ReactNode }
       }
     });
 
-    // Safety timeout
     const timeoutId = setTimeout(() => {
       if (isMounted) {
         setLoading(false);

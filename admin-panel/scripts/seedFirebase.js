@@ -1,15 +1,13 @@
-// c:\dev\The-Daily-Catch\admin-panel\scripts\seedFirebase.js
+
 const { initializeApp } = require('firebase/app');
 const { getFirestore, collection, doc, setDoc } = require('firebase/firestore');
 
-// Firebase config (same as in your src/config/firebase.ts)
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
   authDomain: "your-project.firebaseapp.com",
   projectId: "your-project-id",
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
