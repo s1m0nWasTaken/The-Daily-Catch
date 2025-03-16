@@ -2,22 +2,26 @@
 "use client";
 
 import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { auth } from '../config/firebase'; // CHANGE THIS LINE - one level up, not two
+import { useRouter } from 'next/navigation'; 
+import { getBasePath } from '../utils/path';
 
-export default function Home() {
+export default function Home()
+{
   const router = useRouter();
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     // Clear any existing sessions on app start
-    const clearAndRedirect = () => {
+    const clearAndRedirect = () =>
+    {
       // Clear session storage to prevent auto-login
       sessionStorage.removeItem('userRole');
-      
+
       // Always redirect to login page on first load
-      router.push('/login');
+      const basePath = getBasePath();
+      router.push(`${basePath}/login`);
     };
-    
+
     clearAndRedirect();
   }, [router]);
 

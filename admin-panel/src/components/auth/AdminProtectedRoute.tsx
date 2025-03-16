@@ -1,5 +1,7 @@
 // src/components/ProtectedRoute.tsx
 "use client";
+import { getBasePath } from '../../utils/path';
+
 
 declare global {
   interface Window {
@@ -41,7 +43,8 @@ export default function ProtectedRoute({ children }: { children: ReactNode }) {
         console.log("No user, redirecting to login");
         // Clear role from session
         sessionStorage.removeItem('userRole');
-        router.push('/login');
+        const basePath = getBasePath();
+        router.push(`${basePath}/login`);
         return;
       }
       
@@ -64,7 +67,8 @@ export default function ProtectedRoute({ children }: { children: ReactNode }) {
         } else {
           console.log("Not admin, redirecting to user area");
           sessionStorage.setItem('userRole', 'user');
-          router.push('/user/near-you');
+          const basePath = getBasePath();
+          router.push(`${basePath}/user/near-you`);
         }
       } catch (error) {
         console.error("Error checking admin role:", error);

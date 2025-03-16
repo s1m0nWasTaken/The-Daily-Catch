@@ -6,68 +6,84 @@ import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 
 import { auth, db } from '../../config/firebase';
 import { useRouter } from 'next/navigation';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { getBasePath } from '../../utils/path';
 
-export default function Login() {
+
+export default function Login()
+{
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) =>
+  {
     e.preventDefault();
     setError('');
     setLoading(true);
-    
-    try {
+
+    try
+    {
       console.log("Attempting login with:", email);
       const credential = await signInWithEmailAndPassword(auth, email, password);
       const user = credential.user;
       console.log("Login successful:", user?.email);
-      
+
       // Special handling for admin email
-      if (user.email === 'admin@thedailycatch.com') {
+      if (user.email === 'admin@thedailycatch.com')
+      {
         console.log("Admin email detected, redirecting to admin panel");
         sessionStorage.setItem('userRole', 'admin');
-        router.push('/admin');
+        const basePath = getBasePath();
+        router.push(`${basePath}/admin`);
         return;
       }
-      
+
       // Check role in database
       const userDoc = await getDoc(doc(db, "user_roles", user.uid));
-      
-      if (userDoc.exists() && userDoc.data().role === "admin") {
+
+      if (userDoc.exists() && userDoc.data().role === "admin")
+      {
         console.log("Admin role found in database");
         sessionStorage.setItem('userRole', 'admin');
-        router.push('/admin');
-      } else {
+        const basePath = getBasePath();
+        router.push(`${basePath}/admin`);
+      } else
+      {
         console.log("Regular user logging in");
         sessionStorage.setItem('userRole', 'user');
-        router.push('/user/near-you');
+        const basePath = getBasePath();
+        router.push(`${basePath}/user/near-you`);
       }
-    } catch (err: any) {
+    } catch (err: any)
+    {
       console.error("Login error:", err);
       setError(err.message || 'Failed to login');
-    } finally {
+    } finally
+    {
       setLoading(false);
     }
   };
 
-  const handleGoogleLogin = async () => {
-    try {
+  const handleGoogleLogin = async () =>
+  {
+    try
+    {
       setError('');
       setLoading(true);
       const provider = new GoogleAuthProvider();
       provider.setCustomParameters({ prompt: 'select_account' });
-      
+
       console.log("Starting Google sign-in flow");
       const result = await signInWithPopup(auth, provider);
       console.log("Google login successful:", result.user?.email);
-      
+
       const user = result.user;
-      
+
       // Check if admin
-      if (user.email === 'admin@thedailycatch.com') {
+      if (user.email === 'admin@thedailycatch.com')
+      {
         console.log("Admin email detected via Google login");
         // Ensure admin role is set in database
         await setDoc(doc(db, "user_roles", user.uid), {
@@ -76,18 +92,22 @@ export default function Login() {
           updatedAt: new Date().toISOString()
         });
         sessionStorage.setItem('userRole', 'admin');
-        router.push('/admin');
+        const basePath = getBasePath();
+        router.push(`${basePath}/admin`);
         return;
       }
-      
+
       // Check existing role
       const userDoc = await getDoc(doc(db, "user_roles", user.uid));
-      
-      if (userDoc.exists() && userDoc.data().role === "admin") {
+
+      if (userDoc.exists() && userDoc.data().role === "admin")
+      {
         console.log("Admin role found for Google user");
         sessionStorage.setItem('userRole', 'admin');
-        router.push('/admin');
-      } else {
+        const basePath = getBasePath();
+        router.push(`${basePath}/admin`);
+      } else
+      {
         // Set or update user role
         await setDoc(doc(db, "user_roles", user.uid), {
           email: user.email,
@@ -96,12 +116,15 @@ export default function Login() {
         });
         console.log("Regular user role set for Google user");
         sessionStorage.setItem('userRole', 'user');
-        router.push('/user/near-you');
+        const basePath = getBasePath();
+        router.push(`${basePath}/user/near-you`);
       }
-    } catch (err: any) {
+    } catch (err: any)
+    {
       console.error("Google login error:", err);
       setError(err.message || 'Failed to login with Google');
-    } finally {
+    } finally
+    {
       setLoading(false);
     }
   };
@@ -113,13 +136,13 @@ export default function Login() {
           <h1 className="text-4xl font-bold text-gray-900">Login</h1>
           <p className="mt-2 text-gray-600">Sign in to access The Daily Catch</p>
         </div>
-        
+
         {error && (
           <div className="p-4 text-red-700 bg-red-100 rounded-md">
             {error}
           </div>
         )}
-        
+
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">
@@ -135,7 +158,7 @@ export default function Login() {
               className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
-          
+
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-700">
               Password
@@ -150,7 +173,7 @@ export default function Login() {
               className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
-          
+
           <div>
             <button
               type="submit"

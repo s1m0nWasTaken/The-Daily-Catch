@@ -7,6 +7,8 @@ import { useRouter } from 'next/navigation';
 import { auth } from '../../config/firebase'; // CHANGE THIS LINE - two levels up
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../config/firebase'; // CHANGE THIS LINE - two levels up
+import { getBasePath } from '../../utils/path';
+
 
 export default function UserProtectedRoute({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
@@ -21,7 +23,8 @@ export default function UserProtectedRoute({ children }: { children: ReactNode }
       
       if (!user) {
         console.log("No user, redirecting to login");
-        router.push('/login');
+        const basePath = getBasePath();
+        router.push(`${basePath}/login`);
         return;
       }
       

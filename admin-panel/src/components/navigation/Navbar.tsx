@@ -4,25 +4,37 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../config/firebase'; // CHANGE THIS - two levels up, not one
+import { getBasePath } from '../../utils/path';
 
-interface NavbarProps {
+
+interface NavbarProps
+{
   toggleSidebar: () => void;
   isOpen: boolean;
   isUserMode?: boolean;
 }
 
-export default function Navbar({ toggleSidebar, isOpen, isUserMode = false }: NavbarProps) {
+export default function Navbar({ toggleSidebar, isOpen, isUserMode = false }: NavbarProps)
+{
   const router = useRouter();
   const [userRole, setUserRole] = useState<string>('');
-  
-  useEffect(() => {
+
+  useEffect(() =>
+  {
     // Get role from session storage
     const role = sessionStorage.getItem('userRole') || '';
     setUserRole(role);
   }, []);
-  
-  const handleLogout = async () => {
-    try {
+
+  const handleLogout = async () =>
+  {
+    await signOut(auth);
+    sessionStorage.removeItem('userRole');
+
+    const basePath = getBasePath();
+    router.push(`${basePath}/login`);
+    try
+    {
       console.log("Logging out...");
       await signOut(auth);
       console.log("Logged out successfully");
@@ -30,7 +42,8 @@ export default function Navbar({ toggleSidebar, isOpen, isUserMode = false }: Na
       sessionStorage.removeItem('userRole');
       // Force a hard reload to clear any state
       window.location.href = '/login';
-    } catch (error) {
+    } catch (error)
+    {
       console.error("Error signing out:", error);
     }
   };
@@ -42,11 +55,11 @@ export default function Navbar({ toggleSidebar, isOpen, isUserMode = false }: Na
         className="p-2 hover:bg-blue-800 rounded-md focus:outline-none cursor-pointer"
         aria-label={isOpen ? "Close menu" : "Open menu"}
       >
-        <svg 
-          xmlns="http://www.w3.org/2000/svg" 
-          className="h-6 w-6" 
-          fill="none" 
-          viewBox="0 0 24 24" 
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
           stroke="currentColor"
         >
           {isOpen ? (
@@ -59,9 +72,9 @@ export default function Navbar({ toggleSidebar, isOpen, isUserMode = false }: Na
 
       <div className="absolute left-1/2 transform -translate-x-1/2 cursor-pointer">
         <img
-          src="./img/title.png"
+          src={process.env.NODE_ENV === 'production' ? '/The-Daily-Catch/img/title.png' : './img/title.png'}
           alt="The Daily Catch"
-          className="h-10 object-contain"
+          className="h-12 mx-auto mb-4"
         />
       </div>
 
@@ -76,10 +89,10 @@ export default function Navbar({ toggleSidebar, isOpen, isUserMode = false }: Na
         >
           Logout
         </button>
-        
+
         <div className="p-2 cursor-pointer">
           <img
-            src="./img/profileimg.png"
+            src={process.env.NODE_ENV === 'production' ? '/The-Daily-Catch/img/profileimg.png' : './img/profileimg.png'}
             alt="Profile"
             width="24"
             height="24"

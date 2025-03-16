@@ -3,12 +3,17 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { getBasePath } from '../../utils/path';
 
-export default function UserPage() {
+
+export default function UserPage()
+{
   const router = useRouter();
 
-  useEffect(() => {
-    router.push('/user/dashboard');
+  useEffect(() =>
+  {
+    const basePath = getBasePath();
+    router.push(`${basePath}/user/dashboard`);
   }, [router]);
 
   return (
