@@ -5,9 +5,10 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // Remove basePath - GitHub Actions deployment doesn't need it
-  // basePath: process.env.NODE_ENV === 'production' ? '/The-Daily-Catch' : '',
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/' : '',
+  // Restore basePath - we DO need it for GitHub Pages
+  basePath: process.env.NODE_ENV === 'production' ? '/The-Daily-Catch' : '',
+  // Fix assetPrefix to match the repository name
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/The-Daily-Catch' : '',
   trailingSlash: true,
 }
 

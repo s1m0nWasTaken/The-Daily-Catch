@@ -1,6 +1,6 @@
 // src/utils/path.ts
 export function getBasePath(): string {
-    // Return empty string - GitHub Actions deploys to root
+    // Let Next.js handle the basePath
     return '';
   }
   
