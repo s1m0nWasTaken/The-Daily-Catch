@@ -5,8 +5,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // Remove the basePath - GitHub Pages already adds the repo name
-  // basePath: process.env.NODE_ENV === 'production' ? '/The-Daily-Catch' : '', 
+  basePath: process.env.NODE_ENV === 'production' ? '/The-Daily-Catch' : '',
   assetPrefix: process.env.NODE_ENV === 'production' ? '/The-Daily-Catch/' : '',
   trailingSlash: true,
 }
