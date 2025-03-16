@@ -26,27 +26,23 @@ export default function Navbar({ toggleSidebar, isOpen, isUserMode = false }: Na
     setUserRole(role);
   }, []);
 
-  const handleLogout = async () =>
-  {
-    await signOut(auth);
-    sessionStorage.removeItem('userRole');
 
-    const basePath = getBasePath();
-    router.push(`${basePath}/login`);
-    try
-    {
-      console.log("Logging out...");
-      await signOut(auth);
-      console.log("Logged out successfully");
-      // Clear role from session
-      sessionStorage.removeItem('userRole');
-      // Force a hard reload to clear any state
-      window.location.href = '/login';
-    } catch (error)
-    {
-      console.error("Error signing out:", error);
-    }
-  };
+const handleLogout = async () => {
+  try {
+    console.log("Logging out...");
+    await signOut(auth);
+    console.log("Logged out successfully");
+    
+    // Clear role from session
+    sessionStorage.removeItem('userRole');
+    
+    // Use Next.js router with proper basePath
+    // This allows Next.js to handle the repository name prefix
+    router.push('/login');
+  } catch (error) {
+    console.error("Error signing out:", error);
+  }
+};
 
   return (
     <nav className="fixed top-0 left-0 right-0 h-16 bg-[#0F243B] text-white flex items-center justify-between px-4 z-50">
