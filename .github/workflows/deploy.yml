@@ -69,6 +69,10 @@ jobs:
     name: SonarCloud Scan
     needs: build
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./admin-panel
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -79,7 +83,6 @@ jobs:
           node-version: '20'
 
       - name: Install Dependencies
-        working-directory: ./admin-panel
         run: npm ci
 
 #      - name: Run Tests with Coverage
