@@ -79,7 +79,8 @@ jobs:
           node-version: '20'
 
       - name: Install Dependencies
-        run: npm install
+        working-directory: ./admin-panel
+        run: npm ci
 
 #      - name: Run Tests with Coverage
 #        run: npm test -- --coverage
