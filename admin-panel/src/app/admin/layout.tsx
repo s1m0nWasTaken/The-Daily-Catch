@@ -30,7 +30,7 @@ export default function AdminLayout({ children }: AdminLayoutProps)
   return (
     <ProtectedRoute>
       <div className="min-h-screen bg-white">
-        <Navbar toggleSidebar={toggleSidebar} isOpen={sidebarOpen} isUserMode={false} />
+        <Navbar toggleSidebar={toggleSidebar} isOpen={sidebarOpen} />
 
         <div className="flex pt-16">
           <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />

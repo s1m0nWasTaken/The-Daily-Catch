@@ -6,7 +6,6 @@ import UserProtectedRoute from '../../components/auth/UserProtectedRoute';
 import Navbar from '../../components/navigation/Navbar';
 import UserSidebar from '../../components/navigation/UserSidebar';
 import AdminSidebar from '../../components/navigation/AdminSidebar';
-import { useRouter } from 'next/navigation';
 
 type AdminLayoutProps = Readonly<{
   children: React.ReactNode;
@@ -30,7 +29,7 @@ export default function AdminLayout({ children }: AdminLayoutProps)
   return (
     <UserProtectedRoute>
       <div className="min-h-screen bg-white">
-        <Navbar toggleSidebar={toggleSidebar} isOpen={sidebarOpen} isUserMode={!isAdmin} />
+        <Navbar toggleSidebar={toggleSidebar} isOpen={sidebarOpen}/>
 
         <div className="flex pt-16">
           {/* Use the appropriate sidebar based on user role */}
