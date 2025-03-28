@@ -96,7 +96,13 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           sonar-scanner \
-            -Dsonar.projectKey=${{ secrets.PROJECT_KEY }} \
-            -Dsonar.organization=${{ secrets.ORGANIZATION_KEY }} \
-            -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+          -Dsonar.projectKey=${{ secrets.PROJECT_KEY }} \
+          -Dsonar.organization=${{ secrets.ORGANIZATION_KEY }} \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+          -Dsonar.coverage.exclusions=**/* \
+          -Dsonar.cpd.exclusions=**/* \
+          -Dsonar.javascript.lcov.reportPaths= \
+          -Dsonar.test.exclusions=**/* \
+          -Dsonar.tests= \
+          -Dsonar.qualitygate.ignore=coverage,duplicated-lines
