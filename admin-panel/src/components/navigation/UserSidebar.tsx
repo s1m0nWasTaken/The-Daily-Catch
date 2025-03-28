@@ -4,13 +4,16 @@
 import React from 'react';
 import Link from 'next/link';
 
-interface UserSidebarProps {
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+interface UserSidebarProps
+{
+  readonly isOpen: boolean;
+  readonly setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function UserSidebar({ isOpen, setIsOpen }: UserSidebarProps) {
-  const closeSidebar = () => {
+export default function UserSidebar({ isOpen, setIsOpen }: UserSidebarProps)
+{
+  const closeSidebar = () =>
+  {
     setIsOpen(false);
   };
 
@@ -18,16 +21,16 @@ export default function UserSidebar({ isOpen, setIsOpen }: UserSidebarProps) {
     <>
       {/* Add overlay when sidebar is open */}
       {isOpen && (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden" 
+        <button
+          className="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden w-full h-full border-0 cursor-default"
           onClick={() => setIsOpen(false)}
-        ></div>
+          aria-label="Close sidebar"
+        ></button>
       )}
-      
-      <div 
-        className={`fixed top-16 left-0 h-[calc(100vh-4rem)] w-64 bg-[#0F243B] text-white transition-transform duration-300 ease-in-out ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
-        } z-40 shadow-lg`}
+
+      <div
+        className={`fixed top-16 left-0 h-[calc(100vh-4rem)] w-64 bg-[#0F243B] text-white transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'
+          } z-40 shadow-lg`}
       >
         <div className="p-4">
           <nav className="h-full flex flex-col">

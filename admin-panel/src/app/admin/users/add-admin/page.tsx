@@ -2,8 +2,6 @@
 "use client";
 
 import React, { useState } from 'react';
-import { db } from '../../../../config/firebase';
-import { doc, setDoc, getDoc } from 'firebase/firestore';
 
 export default function AddAdminPage() {
   const [email, setEmail] = useState('');
@@ -15,11 +13,8 @@ export default function AddAdminPage() {
     setStatus('');
     setLoading(true);
 
+    // Not fully implemented. It doesnt check if the user exists or not.
     try {
-      // This is just a placeholder implementation
-      // In a real app, you'd verify the user exists first
-      
-      // Simulate a check to Firebase
       await new Promise(resolve => setTimeout(resolve, 1000));
 
       setStatus('success');

@@ -2,13 +2,16 @@
 
 import { ReactNode, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { auth } from '../../config/firebase'; 
+import { auth, db } from '../../config/firebase'; 
 import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../../config/firebase'; 
 import { getBasePath } from '../../utils/path';
 
 
-export default function UserProtectedRoute({ children }: { children: ReactNode }) {
+type UserProtectedRoute = Readonly<{
+  children: React.ReactNode;
+}>;
+
+export default function UserProtectedRoute({ children }: Readonly<{ children: ReactNode }>) {
   const [loading, setLoading] = useState(true);
   const [authenticated, setAuthenticated] = useState(false);
   const router = useRouter();
@@ -26,7 +29,7 @@ export default function UserProtectedRoute({ children }: { children: ReactNode }
         return;
       }
 
-      const userRole = sessionStorage.getItem('userRole') || '';
+      const userRole = sessionStorage.getItem('userRole') ?? '';
 
       if (userRole === 'admin') {
         console.log("Admin accessing user area, allowing access");

@@ -252,10 +252,6 @@ export default function UsersTable()
                 ✖
               </button>
             </div>
-
-            // In UsersTable.tsx, replace the current form onSubmit handler:
-
-            // Replace the edit form portion in UsersTable.tsx
             <form onSubmit={async (e) =>
             {
               e.preventDefault();
@@ -278,10 +274,11 @@ export default function UsersTable()
               }
             }}>
               <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">
+                <label htmlFor="username" className="block text-gray-700 text-sm font-bold mb-2">
                   Username
                 </label>
                 <input
+                  id="username"
                   type="text"
                   value={editingUser.username}
                   onChange={(e) => setEditingUser({ ...editingUser, username: e.target.value })}
@@ -290,10 +287,11 @@ export default function UsersTable()
               </div>
 
               <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">
+                <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">
                   Email
                 </label>
                 <input
+                  id="email"
                   type="email"
                   value={editingUser.email}
                   onChange={(e) => setEditingUser({ ...editingUser, email: e.target.value })}
@@ -302,11 +300,15 @@ export default function UsersTable()
               </div>
 
               <div className="mb-6">
-                <label className="block text-gray-700 text-sm font-bold mb-2">
+                <label
+                  htmlFor="reset-password"
+                  className="block text-gray-700 text-sm font-bold mb-2"
+                >
                   Reset Password
                 </label>
                 <div className="flex items-center">
                   <button
+                    id="reset-password"
                     type="button"
                     className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-colors duration-200 cursor-pointer"
                     onClick={() =>

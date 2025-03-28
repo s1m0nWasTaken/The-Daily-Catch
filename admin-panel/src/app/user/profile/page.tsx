@@ -12,7 +12,7 @@ export default function ProfilePage() {
     if (currentUser) {
       setUser({
         email: currentUser.email,
-        displayName: currentUser.displayName || currentUser.email?.split('@')[0] || 'User',
+        displayName: currentUser.displayName ?? currentUser.email?.split('@')[0] ?? 'User',
         photoURL: currentUser.photoURL
       });
     }

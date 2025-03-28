@@ -10,12 +10,15 @@ declare global {
 
 import { ReactNode, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { auth } from '../../config/firebase'; 
+import { auth, db } from '../../config/firebase'; 
 import { signOut } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../../config/firebase';
 
-export default function ProtectedRoute({ children }: { children: ReactNode }) {
+type ProtectedRoute = Readonly<{
+  children: React.ReactNode;
+}>;
+
+export default function ProtectedRoute({ children }: Readonly<{ children: ReactNode }>) {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 

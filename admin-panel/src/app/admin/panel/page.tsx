@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { db } from '../../../config/firebase';
-import { collection, getDocs, doc, updateDoc } from 'firebase/firestore';
+import { collection, getDocs} from 'firebase/firestore';
 
 interface User {
   id: string;
@@ -196,7 +196,7 @@ export default function AdminPanelPage() {
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">
                             <div className="flex-shrink-0 h-10 w-10 bg-blue-500 rounded-full flex items-center justify-center text-white">
-                              {user.displayName?.charAt(0).toUpperCase() || 'U'}
+                              {user.displayName?.charAt(0).toUpperCase() ?? 'U'}
                             </div>
                             <div className="ml-4">
                               <div className="text-sm font-medium text-gray-900">{user.displayName}</div>
@@ -219,7 +219,7 @@ export default function AdminPanelPage() {
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm">
-                          {user.reports || 0}
+                          {user.reports ?? 0}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                           {user.status === 'active' ? (

@@ -5,22 +5,25 @@ import ProtectedRoute from '../../components/auth/AdminProtectedRoute';
 import Navbar from '../../components/navigation/Navbar';
 import Sidebar from '../../components/navigation/AdminSidebar';
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
+type AdminLayoutProps = Readonly<{
+  children: React.ReactNode;
+}>;
 
-  useEffect(() => {
-    // Check if admin from session storage
+export default function AdminLayout({ children }: AdminLayoutProps)
+{
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  useEffect(() =>
+  {
     const role = sessionStorage.getItem('userRole');
-    setIsAdmin(role === 'admin');
-    
-    // If not admin, this shouldn't even render, but just in case
-    if (role !== 'admin') {
+    if (role !== 'admin')
+    {
       window.location.href = '/login';
     }
   }, []);
 
-  const toggleSidebar = () => {
+  const toggleSidebar = () =>
+  {
     setSidebarOpen(prevState => !prevState);
   };
 
@@ -33,9 +36,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
 
           <div
-            className={`transition-all duration-300 ease-in-out flex-1 ${
-              sidebarOpen ? 'ml-64' : 'ml-0'
-            }`}
+            className={`transition-all duration-300 ease-in-out flex-1 ${sidebarOpen ? 'ml-64' : 'ml-0'
+              }`}
           >
             <div className="p-6 max-w-7xl mx-auto">
               {children}

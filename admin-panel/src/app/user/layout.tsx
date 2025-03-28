@@ -8,10 +8,14 @@ import UserSidebar from '../../components/navigation/UserSidebar';
 import AdminSidebar from '../../components/navigation/AdminSidebar';
 import { useRouter } from 'next/navigation';
 
-export default function UserLayout({ children }: { children: React.ReactNode }) {
+type AdminLayoutProps = Readonly<{
+  children: React.ReactNode;
+}>;
+
+export default function AdminLayout({ children }: AdminLayoutProps)
+{
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const router = useRouter();
+  const [isAdmin, setIsAdmin] = useState(false);;
 
   useEffect(() => {
     // Check if this is actually an admin viewing user pages

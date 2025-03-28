@@ -3,7 +3,7 @@ import { Report } from '../models/Report';
 import { db } from '../config/firebase';
 import
 {
-  collection, getDocs, doc, getDoc, setDoc, updateDoc,
+  collection, getDocs, doc, getDoc, updateDoc,
   query, where, DocumentData
 } from 'firebase/firestore';
 

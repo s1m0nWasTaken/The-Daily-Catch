@@ -3,42 +3,44 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { signOut } from 'firebase/auth';
-import { auth } from '../../config/firebase'; // CHANGE THIS - two levels up, not one
-import { getBasePath } from '../../utils/path';
+import { auth } from '../../config/firebase';
 
 
 interface NavbarProps
 {
-  toggleSidebar: () => void;
-  isOpen: boolean;
-  isUserMode?: boolean;
+  readonly toggleSidebar: () => void;
+  readonly isOpen: boolean;
 }
 
-export default function Navbar({ toggleSidebar, isOpen, isUserMode = false }: NavbarProps)
+// Use the properly defined interface
+export default function Navbar({toggleSidebar, isOpen}: NavbarProps)
 {
   const router = useRouter();
   const [userRole, setUserRole] = useState<string>('');
 
   useEffect(() =>
   {
-    const role = sessionStorage.getItem('userRole') || '';
+    const role = sessionStorage.getItem('userRole') ?? '';
     setUserRole(role);
   }, []);
 
 
-const handleLogout = async () => {
-  try {
-    console.log("Logging out...");
-    await signOut(auth);
-    console.log("Logged out successfully");
-    
-    sessionStorage.removeItem('userRole');
-    
-    router.push('/login');
-  } catch (error) {
-    console.error("Error signing out:", error);
-  }
-};
+  const handleLogout = async () =>
+  {
+    try
+    {
+      console.log("Logging out...");
+      await signOut(auth);
+      console.log("Logged out successfully");
+
+      sessionStorage.removeItem('userRole');
+
+      router.push('/login');
+    } catch (error)
+    {
+      console.error("Error signing out:", error);
+    }
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 h-16 bg-[#0F243B] text-white flex items-center justify-between px-4 z-50">

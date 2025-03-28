@@ -13,7 +13,7 @@ export default function UserDashboard() {
       
       <div className="bg-white shadow-md rounded p-6">
         <h2 className="text-xl font-bold mb-4">
-          Hello, {user?.email?.split('@')[0] || 'User'}
+          Hello, {user?.email?.split('@')[0] ?? 'User'}
         </h2>
         
         <p className="mb-4">
